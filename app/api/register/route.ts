@@ -11,10 +11,17 @@ export async function POST(
         const {
             email,
             name,
-            password
+            password,
+            confirmPassword
         } = body;
 
-        if (!email || !name || !password) {
+        const existingUser = await prisma.user.findUnique({ where: { email } });
+        if (existingUser) {
+            return new NextResponse('Email already exists', { status: 409 });
+        }
+
+
+        if (!email || !name || !password || !confirmPassword) {
             return new NextResponse("Missing info", { status: 400 });
         }
 

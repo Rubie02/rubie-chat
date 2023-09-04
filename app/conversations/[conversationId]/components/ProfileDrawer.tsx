@@ -203,7 +203,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                                                             sm:flex-shrink-0
                                                                         "
                                                                     >
-                                                                        Emails
+                                                                        Members
                                                                     </dt>
                                                                     <dd className="
                                                                         mt-1
@@ -211,7 +211,13 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                                                         text-gray-900
                                                                         sm:col-span-2
                                                                     ">
-                                                                        {data.users.map((user) => user.email).join(', ')}
+                                                                        {data.users.map((user) => (
+                                                                            <div key={user.name} className="flex items-center">
+                                                                                <Avatar user={user} /> 
+                                                                                <span className="flex-grow">{user.name}</span>
+                                                                            </div>
+                                                                        ))}
+                                                                        
                                                                     </dd>
                                                                 </div>
                                                             )}

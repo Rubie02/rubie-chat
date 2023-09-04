@@ -59,6 +59,14 @@ const AuthForm = () => {
                 setIsLoading(false);
                 return;
             }
+            // Password complexity validation
+            const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+            if (!passwordRegex.test(data.password)) {
+                toast.error('Password must contain at least 8 characters, including at least one upper letter, one normal letter, one number, and one special character.');
+                setIsLoading(false);
+                return;
+            }
+
             // Axios Register
             axios.post('/api/register', data)
             .then(() => {
@@ -226,7 +234,7 @@ const AuthForm = () => {
                     text-gray-500
                 ">
                     <div>
-                        {variant === 'LOGIN' ? "New to Rubie's Chat?" : "Already have an account."}
+                        {variant === 'LOGIN' ? "New to Rubie's Chat?" : "Already have an account!"}
                     </div>
                     <div
                         onClick={toggleVariant}
